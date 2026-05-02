@@ -166,7 +166,7 @@ export const RSVPForm = ({ onSubmit }) => {
                 key="s2"
                 icon={<Calendar />}
                 title="A Cerimônia"
-                sub="11 de Abril de 2027 • 14:00"
+                sub="11 de Abril de 2027 • 12:30"
               >
                 <InfoCard
                   color="blue"
@@ -188,7 +188,7 @@ export const RSVPForm = ({ onSubmit }) => {
                 key="s3"
                 icon={<Heart />}
                 title="A Comemoração"
-                sub="Mesmo dia • A partir das 18:00"
+                sub="Mesmo dia • A partir das 15:00"
               >
                 <InfoCard
                   color="amber"
