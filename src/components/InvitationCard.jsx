@@ -1,5 +1,10 @@
 import { useState, useEffect } from "react";
 
+// Importar imagens
+import principalNos from "../assets/principal-nos.png";
+import buffetImg from "../assets/buffet.jpg";
+import nosGif from "../assets/nos-gif.gif";
+
 const WEDDING_DATE = new Date("2027-04-11T18:00:00");
 
 function useCountdown(targetDate) {
@@ -46,7 +51,7 @@ const DETAILS_CARDS = [
     number: "02",
     title: "A Recepção",
     text: "Após o 'sim', celebraremos com mesa farta e a alegria de quem amamos. Preparamos um banquete especial para brindarmos juntos esta nova etapa.",
-    image: "src/fotos/buffet.jpg",
+    image: buffetImg,
   },
   {
     number: "03",
@@ -117,7 +122,7 @@ export default function InvitationCard({
             <div className="relative group lg:order-1 order-2">
               <div className="overflow-hidden rounded-2xl ">
                 <img
-                  src="src/fotos/principal-nos.png"
+                  src={principalNos}
                   alt="Noivos"
                   className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-[3s]"
                 />
@@ -309,7 +314,7 @@ export default function InvitationCard({
             <div className="absolute -inset-4 border border-white/10 rounded-full animate-pulse" />
             <div className="relative w-40 h-40 sm:w-48 sm:h-48 rounded-full overflow-hidden border-2 border-white/20">
               <img
-                src="src/fotos/nos-gif.gif"
+                src={nosGif}
                 alt="B&V"
                 className="w-full h-full object-cover grayscale-[0.2] group-hover:grayscale-0 transition-all duration-700"
               />
