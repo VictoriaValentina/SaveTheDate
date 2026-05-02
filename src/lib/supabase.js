@@ -1,8 +1,9 @@
 import { createClient } from "@supabase/supabase-js";
 
 // As credenciais do Supabase devem ser definidas como variáveis de ambiente
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
-const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_KEY;
+const SUPABASE_URL = "https://mtfccztiwfarkklyyapv.supabase.co";
+const SUPABASE_KEY =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im10ZmNjenRpd2ZhcmtrbHl5YXB2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM3MDMyNzUsImV4cCI6MjA4OTI3OTI3NX0.1Nsw3cSG04H0F0XLCd6xb9QjifU5zh4GJhQSEb4rpqQ";
 
 if (!SUPABASE_URL || !SUPABASE_KEY) {
   throw new Error(
@@ -25,7 +26,15 @@ export const submitRSVP = async (formData) => {
       },
     ]);
 
-    if (error) throw error;
+    if (error) {
+      // Erro 23505 é violação de constraint UNIQUE (email já cadastrado)
+      if (error.code === "23505") {
+        throw new Error(
+          "Olá novamente! Parece que você já confirmou presença. Se deseja atualizar suas informações, por favor entre em contato conosco.",
+        );
+      }
+      throw error;
+    }
 
     return { success: true, data };
   } catch (error) {

@@ -16,8 +16,8 @@ export const RSVPForm = ({ onSubmit }) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    confirmed_church: false,
-    confirmed_barbecue: false,
+    confirmed_church: "",
+    confirmed_barbecue: "",
     companions: 0,
     companions_names: [],
   });
@@ -36,6 +36,14 @@ export const RSVPForm = ({ onSubmit }) => {
     setError(null);
   };
 
+  const handleConfirmationChange = (field, value) => {
+    setFormData((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+    setError(null);
+  };
+
   const handleNextStep = () => {
     if (step === 1) {
       if (!formData.name.trim() || !formData.email.trim())
@@ -43,9 +51,9 @@ export const RSVPForm = ({ onSubmit }) => {
       if (!formData.email.includes("@"))
         return setError("Formato de e-mail inválido.");
     }
-    if (step === 2 && !formData.confirmed_church)
+    if (step === 2 && formData.confirmed_church === "")
       return setError("Confirme sua presença na cerimônia.");
-    if (step === 3 && !formData.confirmed_barbecue)
+    if (step === 3 && formData.confirmed_barbecue === "")
       return setError("Confirme sua presença na celebração.");
 
     if (step === 4) {
@@ -84,7 +92,7 @@ export const RSVPForm = ({ onSubmit }) => {
 
       if (checkResult.exists) {
         setError(
-          "Este e-mail já confirmou presença. Se precisar alterar, entre em contato conosco.",
+          `Olá ${formData.name}! Você já confirmou presença. Se precisar alterar alguma informação, entre em contato conosco.`,
         );
         setLoading(false);
         return;
@@ -114,7 +122,7 @@ export const RSVPForm = ({ onSubmit }) => {
           <CheckCircle2 className="text-green-500 w-10 h-10" />
         </div>
         <h2 className="text-2xl font-serif font-bold text-slate-800 mb-2">
-          Presença Confirmada!
+          Olá {formData.name}, presença confirmada!
         </h2>
         <p className="text-slate-500">
           Estamos muito felizes em ter você conosco neste dia tão especial. ❤️
@@ -192,10 +200,18 @@ export const RSVPForm = ({ onSubmit }) => {
                   text="A cerimônia será realizada na Basilica Nossa Senhora da Penha. Um momento de fé e união."
                 />
                 <CheckboxCard
-                  name="confirmed_church"
-                  checked={formData.confirmed_church}
-                  onChange={handleChange}
+                  checked={formData.confirmed_church === "Sim"}
+                  onChange={() =>
+                    handleConfirmationChange("confirmed_church", "Sim")
+                  }
                   label="Sim, comparecerei à cerimônia"
+                />
+                <CheckboxCard
+                  checked={formData.confirmed_church === "Não"}
+                  onChange={() =>
+                    handleConfirmationChange("confirmed_church", "Não")
+                  }
+                  label="Não, não poderei comparecer à cerimônia"
                 />
               </StepContainer>
             )}
@@ -214,10 +230,18 @@ export const RSVPForm = ({ onSubmit }) => {
                   text="Prepare-se para uma noite de festa, boa música e gastronomia."
                 />
                 <CheckboxCard
-                  name="confirmed_barbecue"
-                  checked={formData.confirmed_barbecue}
-                  onChange={handleChange}
+                  checked={formData.confirmed_barbecue === "Sim"}
+                  onChange={() =>
+                    handleConfirmationChange("confirmed_barbecue", "Sim")
+                  }
                   label="Sim, estarei na comemoração"
+                />
+                <CheckboxCard
+                  checked={formData.confirmed_barbecue === "Não"}
+                  onChange={() =>
+                    handleConfirmationChange("confirmed_barbecue", "Não")
+                  }
+                  label="Não, não poderei comparecer à comemoração"
                 />
               </StepContainer>
             )}
@@ -277,11 +301,11 @@ export const RSVPForm = ({ onSubmit }) => {
                   <ReviewRow label="Convidado" value={formData.name} />
                   <ReviewRow
                     label="Cerimônia"
-                    value={formData.confirmed_church ? "Confirmado" : "Não"}
+                    value={formData.confirmed_church}
                   />
                   <ReviewRow
                     label="Festa"
-                    value={formData.confirmed_barbecue ? "Confirmado" : "Não"}
+                    value={formData.confirmed_barbecue}
                   />
                   <ReviewRow
                     label="Crianças"
