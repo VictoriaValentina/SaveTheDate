@@ -1,0 +1,137 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #fdf4e6 0%, #f5e6d3 100%);
+  min-height: 100vh;
+}
+
+.envelope {
+  perspective: 1000px;
+}
+
+.envelope-front {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: all 0.8s ease-out;
+  transform-style: preserve-3d;
+}
+
+.envelope-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.8s ease-out;
+  transform: rotateY(180deg);
+}
+
+.envelope.open .envelope-front {
+  transform: rotateY(180deg);
+  opacity: 0;
+  visibility: hidden;
+}
+
+.envelope.open .envelope-back {
+  opacity: 1;
+  visibility: visible;
+  transform: rotateY(0deg);
+}
+
+.seal {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.seal:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(0 10px 20px rgba(220, 20, 60, 0.3));
+}
+
+.seal:active {
+  transform: scale(0.98);
+}
+
+.invitation-card {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: #dc143c;
+  box-shadow: 0 0 0 3px rgba(220, 20, 60, 0.1);
+}
+
+.btn-custom {
+  background: linear-gradient(135deg, #dc143c 0%, #c41830 100%);
+  transition: all 0.3s ease;
+}
+
+.btn-custom:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(220, 20, 60, 0.3);
+}
+
+.btn-custom:active {
+  transform: translateY(0);
+}
+
+.form-group {
+  animation: slideIn 0.5s ease-out backwards;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
