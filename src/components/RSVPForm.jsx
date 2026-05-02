@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { submitRSVP } from "../lib/supabase";
+import { submitRSVP, checkRSVPExists } from "../lib/supabase";
 import {
   Calendar,
   MapPin,
@@ -73,14 +73,31 @@ export const RSVPForm = ({ onSubmit }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setError(null);
+
     try {
+      // Verificar se o email já foi confirmado
+      const checkResult = await checkRSVPExists(formData.email);
+      if (!checkResult.success) {
+        throw new Error("Erro ao verificar confirmação existente.");
+      }
+
+      if (checkResult.exists) {
+        setError(
+          "Este e-mail já confirmou presença. Se precisar alterar, entre em contato conosco.",
+        );
+        setLoading(false);
+        return;
+      }
+
+      // Se não existe, prosseguir com o envio
       const result = await submitRSVP(formData);
       if (result.success) {
         setSuccess(true);
         setTimeout(() => onSubmit?.(), 4000);
       } else throw new Error(result.error);
     } catch (err) {
-      setError("Ocorreu um erro ao enviar. Tente novamente.");
+      setError(err.message || "Ocorreu um erro ao enviar. Tente novamente.");
     } finally {
       setLoading(false);
     }

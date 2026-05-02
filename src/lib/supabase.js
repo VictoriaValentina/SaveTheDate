@@ -46,3 +46,20 @@ export const getRSVPs = async () => {
     return { success: false, error: error.message };
   }
 };
+
+export const checkRSVPExists = async (email) => {
+  try {
+    const { data, error } = await supabase
+      .from("convidados")
+      .select("email")
+      .eq("email", email)
+      .single();
+
+    if (error && error.code !== "PGRST116") throw error; // PGRST116 is "not found"
+
+    return { success: true, exists: !!data };
+  } catch (error) {
+    console.error("Erro ao verificar RSVP:", error);
+    return { success: false, error: error.message };
+  }
+};
