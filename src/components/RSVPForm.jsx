@@ -182,7 +182,7 @@ export const RSVPForm = ({ onSubmit }) => {
 
             {step === 2 && (
               <StepContainer key="s2" icon={<Calendar />} title="A Cerimônia" sub="11 de Abril de 2027 • 12:30">
-                <InfoCard color="blue" icon={<MapPin size={18} />} title="Local Sagrado" text="Basilica Nossa Senhora da Penha." />
+                <InfoCard color="blue" icon={<MapPin size={18} />} title="Local da Cerimônia" text="Basilica Nossa Senhora da Penha." />
                 <CheckboxCard checked={formData.confirmed_church === "Sim"} onChange={() => handleConfirmationChange("confirmed_church", "Sim")} label="Sim, comparecerei à cerimônia" />
                 <CheckboxCard checked={formData.confirmed_church === "Não"} onChange={() => handleConfirmationChange("confirmed_church", "Não")} label="Não poderei comparecer" />
               </StepContainer>
@@ -200,7 +200,7 @@ export const RSVPForm = ({ onSubmit }) => {
               <StepContainer key="s4" icon={<Users />} title="Acompanhantes" sub="Você trará crianças com você?">
                 <div className={`bg-amber-50 p-6 rounded-2xl border ${acknowledgedChildren ? 'border-amber-200' : 'border-rose-300 bg-rose-50 animate-pulse'}`}>
                   <p className="text-amber-800 text-sm leading-relaxed italic">
-                    <strong>Regra:</strong> Apenas crianças abaixo de 8 anos.
+                    <strong>Regra:</strong> Somente crianças abaixo de 8 anos devem ser cadastradas aqui. Caso a criança tenha 8 anos ou mais, ela deverá ser cadastrada individualmente como convidada adulta.
                   </p>
                   <div className="mt-4 flex items-center">
                     <input type="checkbox" id="ack" checked={acknowledgedChildren} onChange={(e) => setAcknowledgedChildren(e.target.checked)} className="mr-3 h-4 w-4 text-rose-600 border-gray-300 rounded" />
