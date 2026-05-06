@@ -1,8 +1,11 @@
 import { createClient } from "@supabase/supabase-js";
 
 // As credenciais do Supabase devem ser definidas como variáveis de ambiente
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
-const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_KEY;
+// const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+// const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_KEY;
+
+const SUPABASE_URL = "https://mtfccztiwfarkklyyapv.supabase.co";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im10ZmNjenRpd2ZhcmtrbHl5YXB2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM3MDMyNzUsImV4cCI6MjA4OTI3OTI3NX0.1Nsw3cSG04H0F0XLCd6xb9QjifU5zh4GJhQSEb4rpqQ";
 
 if (!SUPABASE_URL || !SUPABASE_KEY) {
   throw new Error(
